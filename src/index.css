@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.move-effect {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: all 0.5s ease-out;
+}
+
+.player-move .move-effect {
+  left: 30%;
+  bottom: 30%;
+}
+
+.opponent-move .move-effect {
+  right: 30%;
+  top: 30%;
+}
+
+.player-move .move-effect.animate {
+  transform: translateX(200px) scale(3);
+  opacity: 0 !important;
+}
+
+.opponent-move .move-effect.animate {
+  transform: translateX(-200px) scale(3);
+  opacity: 0 !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
