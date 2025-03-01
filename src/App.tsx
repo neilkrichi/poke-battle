@@ -39,6 +39,14 @@ const App: React.FC = () => {
   const startBattle = async () => {
     if (!playerPokemon) return;
     
+    // Reset player Pokemon HP
+    const playerMaxHp = playerPokemon.pokemon.stats.find(s => s.stat.name === 'hp')?.base_stat || 100;
+    setPlayerPokemon(prev => prev ? {
+      ...prev,
+      currentHp: playerMaxHp,
+      maxHp: playerMaxHp
+    } : null);
+    
     // Initialize opponent Pokemon
     const newOpponentPokemon = await fetchRandomPokemon();
     const opponentMoves = await fetchMoves(newOpponentPokemon);
@@ -175,49 +183,53 @@ const App: React.FC = () => {
           </button>
         </div>
       ) : (
-        <>
-          <MoveAnimation 
-            isActive={moveAnimation.isActive}
-            moveType={moveAnimation.moveType}
-            isPlayerMove={moveAnimation.isPlayerMove}
-            onComplete={() => setMoveAnimation(prev => ({ ...prev, isActive: false }))}
-          />
-          {opponentPokemon && (
-            <PokemonCard 
-              battlePokemon={opponentPokemon}
-              isOpponent={true}
-              disabled={true}
+        <div className="flex gap-8">
+          <div className="flex-1">
+            <MoveAnimation 
+              isActive={moveAnimation.isActive}
+              moveType={moveAnimation.moveType}
+              isPlayerMove={moveAnimation.isPlayerMove}
+              onComplete={() => setMoveAnimation(prev => ({ ...prev, isActive: false }))}
             />
-          )}
-
-          {playerPokemon && (
-            <PokemonCard 
-              battlePokemon={playerPokemon}
-              isOpponent={false}
-              onMoveSelect={handleMoveSelect}
-              disabled={!isPlayerTurn || gameOver}
-            />
-          )}
-
-          <BattleLog messages={battleLog} />
-
-          <div className="mt-4 flex justify-center gap-4">
-            {gameOver && (
-              <button 
-                onClick={startBattle}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              >
-                New Battle
-              </button>
+            {opponentPokemon && (
+              <PokemonCard 
+                battlePokemon={opponentPokemon}
+                isOpponent={true}
+                disabled={true}
+              />
             )}
-            <button 
-              onClick={() => setShowSelection(true)}
-              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-            >
-              Change Pokémon
-            </button>
+
+            {playerPokemon && (
+              <PokemonCard 
+                battlePokemon={playerPokemon}
+                isOpponent={false}
+                onMoveSelect={handleMoveSelect}
+                disabled={!isPlayerTurn || gameOver}
+              />
+            )}
           </div>
-        </>
+
+          <div className="w-80 flex flex-col gap-4">
+            <BattleLog messages={battleLog} />
+            
+            <div className="flex flex-col gap-2">
+              {gameOver && (
+                <button 
+                  onClick={startBattle}
+                  className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  New Battle
+                </button>
+              )}
+              <button 
+                onClick={() => setShowSelection(true)}
+                className="w-full px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+              >
+                Change Pokémon
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
