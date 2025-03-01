@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PokemonCard } from './components/PokemonCard';
 import { BattleLog } from './components/BattleLog';
 import { POKEMON_API_BASE, fetchRandomPokemon, fetchMoves, calculateDamage } from './api/pokemonApi';
-import { Pokemon, Move, BattlePokemon } from './types/pokemon';
+import { Move, BattlePokemon } from './types/pokemon';
 import { PokemonSelect } from './components/PokemonSelect';
 import { MoveAnimation } from './components/MoveAnimation';
 

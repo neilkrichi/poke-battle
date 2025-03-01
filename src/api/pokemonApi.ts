@@ -85,6 +85,10 @@ export const calculateDamage = (
   move: Move
 ): { damage: number; effectiveness: number } => {
   const power = move.power;
+  if (power === 0) {
+    return { damage: 0, effectiveness: 0 };
+  }
+
   const attack = attacker.pokemon.stats.find(s => s.stat.name === 'attack')?.base_stat || 0;
   const defense = defender.pokemon.stats.find(s => s.stat.name === 'defense')?.base_stat || 0;
   

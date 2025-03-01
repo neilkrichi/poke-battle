@@ -56,6 +56,7 @@ export const MoveAnimation: React.FC<MoveAnimationProps> = ({
     <div className={`fixed inset-0 pointer-events-none z-50 ${isPlayerMove ? 'player-move' : 'opponent-move'}`}>
       <div 
         className={`move-effect ${animationClass}`}
+        data-testid="move-effect"
         style={{ 
           backgroundColor: getTypeColor(),
           opacity: 0.5
