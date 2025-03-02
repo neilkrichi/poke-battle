@@ -193,7 +193,7 @@ const App: React.FC = () => {
         </div>
       ) : (
         <div className="flex gap-8">
-          <div className="flex-1 bg-[url('/battle-bg.jpg')] bg-cover bg-center rounded-lg shadow-lg relative h-[640px]">
+          <div className="flex-1 bg-[url('/battle-bg.jpg')] bg-cover bg-center rounded-lg shadow-lg relative h-[600px]">
             <MoveAnimation 
               isActive={moveAnimation.isActive}
               moveType={moveAnimation.moveType}
