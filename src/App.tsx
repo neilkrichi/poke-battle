@@ -5,6 +5,8 @@ import { POKEMON_API_BASE, fetchRandomPokemon, fetchMoves, calculateDamage } fro
 import { Move, BattlePokemon } from './types/pokemon';
 import { PokemonSelect } from './components/PokemonSelect';
 import { MoveAnimation } from './components/MoveAnimation';
+import { Analytics } from '@vercel/analytics/react';
+
 
 const App: React.FC = () => {
   const [playerPokemon, setPlayerPokemon] = useState<BattlePokemon | null>(null);
@@ -246,6 +248,7 @@ const App: React.FC = () => {
           </div>
         </div>
       )}
+      <Analytics />
     </div>
   );
 };
