@@ -162,7 +162,14 @@ const App: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center mb-8">Pokémon Battle</h1>
+      <div className="flex items-center justify-center gap-4 mb-8">
+        <img 
+          src="/pokemon-logo.png" 
+          alt="Pokémon Battle" 
+          className="h-20"
+        />
+        <h2 className="text-4xl font-bold self-end">Battle Game</h2>
+      </div>
       
       {showSelection ? (
         <div className="max-w-2xl mx-auto">
@@ -184,29 +191,37 @@ const App: React.FC = () => {
         </div>
       ) : (
         <div className="flex gap-8">
-          <div className="flex-1">
+          <div className="flex-1 bg-[url('/battle-bg.jpg')] bg-cover bg-center rounded-lg shadow-lg relative h-[640px]">
             <MoveAnimation 
               isActive={moveAnimation.isActive}
               moveType={moveAnimation.moveType}
               isPlayerMove={moveAnimation.isPlayerMove}
               onComplete={() => setMoveAnimation(prev => ({ ...prev, isActive: false }))}
             />
-            {opponentPokemon && (
-              <PokemonCard 
-                battlePokemon={opponentPokemon}
-                isOpponent={true}
-                disabled={true}
-              />
-            )}
+            
+            {/* Pokemon Cards Container */}
+            <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end">
+              {opponentPokemon && (
+                <div className="mb-auto">
+                  <PokemonCard 
+                    battlePokemon={opponentPokemon}
+                    isOpponent={true}
+                    disabled={true}
+                  />
+                </div>
+              )}
 
-            {playerPokemon && (
-              <PokemonCard 
-                battlePokemon={playerPokemon}
-                isOpponent={false}
-                onMoveSelect={handleMoveSelect}
-                disabled={!isPlayerTurn || gameOver}
-              />
-            )}
+              {playerPokemon && (
+                <div>
+                  <PokemonCard 
+                    battlePokemon={playerPokemon}
+                    isOpponent={false}
+                    onMoveSelect={handleMoveSelect}
+                    disabled={!isPlayerTurn || gameOver}
+                  />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="w-80 flex flex-col gap-4">

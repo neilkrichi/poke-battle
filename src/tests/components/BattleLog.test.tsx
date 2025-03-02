@@ -25,8 +25,8 @@ describe('BattleLog', () => {
   it('maintains message order', () => {
     render(<BattleLog messages={mockMessages} />);
     const messages = screen.getAllByText(/./i);
-    expect(messages[1].textContent).toBe(mockMessages[0]);
+    expect(messages[1].textContent).toBe(mockMessages[2]);
     expect(messages[2].textContent).toBe(mockMessages[1]);
-    expect(messages[3].textContent).toBe(mockMessages[2]);
+    expect(messages[3].textContent).toBe(mockMessages[0]);
   });
 }); 

@@ -19,13 +19,49 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
   const hpColor = hpPercentage > 50 ? 'bg-green-500' : hpPercentage > 20 ? 'bg-yellow-500' : 'bg-red-500';
 
   return (
-    <div className="flex items-center p-4 bg-white rounded-lg shadow-lg mb-4">
-      <div className={`flex ${isOpponent ? 'flex-row' : 'flex-row-reverse'} items-center w-full`}>
+    <div className="flex items-center p-4 bg-transparent mb-4">
+      <div className={`flex ${isOpponent ? 'flex-row' : 'flex-row-reverse'} items-center space-between w-full gap-8`}>
         <div className="flex-1">
-          <div className={`relative bg-white rounded-xl p-4 ${
+          <div className={`relative bg-gray-500/20 backdrop-blur-sm rounded-xl p-4 ${
             isOpponent ? 'mr-4' : 'ml-4'
           }`}>
-            <h2 className="text-2xl font-bold capitalize">{pokemon.name}</h2>
+            {/* Name and Types Row */}
+            <div className="flex justify-between items-center mb-2">
+              <h2 className="text-2xl font-bold capitalize">{pokemon.name}</h2>
+              <div className="flex gap-1">
+                {pokemon.types.map(({ type }) => {
+                  const typeColors: Record<string, string> = {
+                    normal: 'bg-gray-400',
+                    fire: 'bg-orange-500',
+                    water: 'bg-blue-500',
+                    grass: 'bg-green-500',
+                    electric: 'bg-yellow-400',
+                    ice: 'bg-cyan-300',
+                    fighting: 'bg-red-700',
+                    poison: 'bg-purple-500',
+                    ground: 'bg-yellow-600',
+                    flying: 'bg-indigo-400',
+                    psychic: 'bg-pink-500',
+                    bug: 'bg-lime-500',
+                    rock: 'bg-yellow-800',
+                    ghost: 'bg-purple-700',
+                    dragon: 'bg-indigo-600',
+                    dark: 'bg-gray-700',
+                    steel: 'bg-gray-500',
+                    fairy: 'bg-pink-300',
+                  };
+
+                  return (
+                    <span 
+                      key={type.name}
+                      className={`px-2 py-0.5 rounded text-xs text-white ${typeColors[type.name] || 'bg-gray-600'} capitalize`}
+                    >
+                      {type.name}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
             
             {/* HP Bar */}
             <div className="mt-2">
@@ -39,18 +75,6 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
                   style={{ width: `${hpPercentage}%` }}
                 ></div>
               </div>
-            </div>
-
-            {/* Types */}
-            <div className="flex gap-2 mt-2">
-              {pokemon.types.map(({ type }) => (
-                <span 
-                  key={type.name}
-                  className="px-2 py-1 rounded text-sm text-white bg-gray-600 capitalize"
-                >
-                  {type.name}
-                </span>
-              ))}
             </div>
 
             {/* Moves */}
@@ -80,7 +104,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
         <img 
           src={isOpponent ? pokemon.sprites.front_default : pokemon.sprites.back_default}
           alt={pokemon.name}
-          className={`${isOpponent ? 'w-32 h-32' : 'w-40 h-40'}`}
+          className={`${isOpponent ? 'w-40 h-40' : 'w-60 h-60'}`}
         />
       </div>
     </div>
